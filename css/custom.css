@@ -1,0 +1,53 @@
+.jumbotron {
+	background-image: url("../img/profile.jpg");
+	background-size: cover;
+	background-position: center;
+	font-family: 'Montserrat';
+	margin-bottom: 0;
+}
+
+.jumbotron h1{
+	color: white;
+	text-shadow: 2px 2px black;
+}
+
+.jumbotron h4 {
+	color: white;
+	text-shadow: 2px 2px black;
+}
+
+.about h1, h4, p{
+	font-family: 'Montserrat';
+}
+
+.about p {
+	margin-left: 6em;
+	margin-right: 6em;
+}
+
+.about h1, hr, h4, blockquote {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.footer-copyright {
+	margin-bottom: 1em;
+}
+
+.container {
+	font-family: 'Montserrat';
+}
+
+.caption p {
+	margin: 0 0 10px;
+}
+
+.company img {
+	background-position: center;
+	margin-bottom: 0;
+	border-radius: 50%;
+}

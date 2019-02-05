@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Thomas Chung Website</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/custom.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<nav class="navbar navbar-transparent">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"></a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.html">Thomas Chung</a></li>
+						<li><a href="personal.html">Personal</a></li>
+						<!--
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Design</a></li>
+								<li><a href="#">Development</a></li>
+								<li><a href="#">Consulting</a></li>
+							</ul>
+						</li> -->
+						<li><a href="experience.html">Experience</a></li>
+						<li><a href="projects_portfolio.html">Project Portfolio</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="about">
+			<section>
+				<br>
+				<h1>Project Micromouse 2016 - Santa Clara University</h1>
+				<hr>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-6 col-md-3">
+							<a href="#" class="thumbnail">
+								<img src="img/micromouse2016.jpeg" alt="...">
+							</a>
+						</div>
+						<p>
+						The Micromouse project was for a competition hosted by IEEE where you build a robotic mouse to solve a 16x16 grid maze.
+						To solve it, you have to get to the center of the maze and then back track to your starting spot. The robot needs
+						to take less than 10 minutes to complete this.
+						You could not fly, destroy, or use the top of the walls as markings.
+						So obviously there was some design restraints and tech specifications we had to follow.
+						<br>
+						This was the first serious project I took on outside of lab work. That year, our team consisted of four sophomores, including 
+						myself. Of the four, three of us were CSE/EE and the remaining one was an EE. I was a CSE/EE but we were all the same: none of us 
+						knew how to handle a serious technical project outside of labs and this was the first one we would encounter that would challenge
+						us (well some of us. I can't say <i>all</i> of our members work that hard or contributed much.)
+						<br>
+						We attempted to tackle the problem first by implementing the software on a LEGO NXT robot. This was our first mistake - and I 
+						meant solving the software. Looking back with all the benefits of hind sight, I realized that we should have attempted to build
+						the hardware while simultaneously implementing the software. The LEGO NXT was neither the robot we were going to compete with
+						nor did it have the actual ability to do accurate right hand turns for our software. But with our CSE dominated team, we foolishly
+						thought "Of course we're going to solve this!" During this portion of the project, I conveyed to my team member the algorithm
+						that we used to solved the problem. Some of my team members might incorrectly tell you that we used Djikstra's A* but this is not
+						true. A* was far too complicated for us.
+						We used a form of Depth First Search where the "graph" was molded into a 16x16 graph interconnected together. Each square of grid
+						was given a number: this was an arbitrary way to give weight/preference to squares we wanted to go. Whether we could actually
+						go there was up to whether there were walls or not. The algorithm was as follow: we always start at one of the corners of
+						the maze. This was corner 0. We scan around us for available squares that were accessible. If there were, then by default we start
+						by putting lower numbers into a stack so that the higher numbers are what's accessible on top. We pop the top and then proceed
+						to go there. We put that number into an array that is meant to represent our history. We keep doing this until we hit
+						a road block. Then we back track into our history and erase the square we were in. We pop the stack to go take the 
+						alternative that we didn't take before. We keep doing this until we get to the center. Since we assigned a number to 
+						each square, we know what number the middle 4 squares should be. We use our history array to backtrack back to square 0.
+						We have then completed the maze.
+						<br>
+						It took us a quarter to complete the software and it still wasn't necessarily reliable. We only have half a quarter left to build
+						the hardware before the competition. For the robot, we ended up using motors and encoders from Solarbotics. We prototyped a robot
+						using Arduino, breadboard, wires, two DC motors, two encoders, and IR sensors. One obstacle we immediately ran into was realizing
+						that mounting our motors onto a platform and attempting to drive the robot did not result in the robot moving straight. If
+						we couldn't go straight or turn right accurately, our software was useless. I spent an extensive amount of time learning about
+						PID (Proportional Integral Derivative) controllers to make our robot go straight. I ran into great difficulties trying to tune
+						the parameters. Initially, I attempted to plot out the distance seen by each wheel and tune the parameters to that. After
+						consulting one of the graduate students at our school,  I came to realized I needed to tune to the velocity of each wheel
+						instead because as the distance grows, the controller becomes unbounded. Velocity stays relatively constant, so it was better to 
+						use that to tune the PID parameters. 
+						My experiments with velocity still resulted in unstable performance despite my numerous attempts to tune the output curve.
+						It turns out ultimately, one PID isn't enough. I needed a PID controller on each wheels and have both be approaching
+						a desired velocity. This was how we ultimately perfected linear acceleration. 
+						</p>
+					</div>
+				</div>
+				
+		<hr>
+		<!-- Footer -->
+		<footer class="page-footer font-small cyan darken-3">
+			<!-- Footer Elements -->
+			<div class="container">
+
+				<!-- Grid row-->
+				<div class="row">
+
+					<!-- Grid column -->
+					<div class="col-md-12 py-5">
+						<div class="mb-5 flex-center">
+
+							<!-- Facebook -->
+							<a class="fb-ic">
+								<a href="https://www.facebook.com/YoyoyoyoitsTChung">
+								<i class="fab fa-facebook-square fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+								</a>
+							</a>
+							<!--Linkedin -->
+							<a class="li-ic">
+								<a href="https://www.linkedin.com/in/thomaschungscu/">
+								<i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+								</a>
+							</a>
+							<!-- GitHub -->
+							<a class="ghub-ic">
+								<a href="https://github.com/tchung777">
+								<i class="fab fa-github fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+								</a>
+							</a>
+							<!--Instagram-->
+							<a class="ins-ic">
+								<i class="fas fa-envelope-square fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+							</a>
+						</div>
+					</div>
+					<!-- Grid column -->
+
+				</div>
+				<!-- Grid row-->
+
+			</div>
+			<!-- Footer Elements -->
+
+			<!-- Copyright -->
+			<div class="footer-copyright text-center py-3">© 2018 Copyright Thomas Chung</a>
+			</div>
+			<!-- Copyright -->
+
+		</footer>
+		<!-- Footer -->
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
